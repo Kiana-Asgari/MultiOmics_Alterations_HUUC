@@ -1,0 +1,304 @@
+# HIV-analysis/configs/model_configs.yaml
+
+growth_chart:
+  GAdelivery: [25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46]
+  BWboys: [500, 510, 560, 600, 700, 800, 900, 1050, 1250, 1500, 1700, 1900, 2150, 2300, 2500, 2700, 2900, 3100, 3300, 3500, 3700, 3900]
+  BWgirls: [490, 500, 510, 560, 600, 700, 810, 1000, 1200, 1400, 1600, 1830, 2050, 2250, 2400, 2570, 2710, 2900, 3050, 3200, 3400, 3580]
+        
+
+# Data configuration
+data:
+  countries:
+    - "Bangladesh"
+    - "Kenya"
+    - "Zimbabwe"
+    - "Zambia"
+  
+  data_types:
+    - "Mom"
+    - "Newborn"
+    - "Household"
+    - "Demographic"
+    - "Questionnaire"
+  
+  genom_types:
+    - "Lipidome"
+    - "Metabolome"
+    - "Annotation" #cheating a bit here
+  
+  file_mapping:
+    Kenya: # This country has been checked for HIV analysis
+      Lipidome:
+        Mom: "Kenya_LipidomeMoms_New.csv"
+        Newborn: "KenyaNewborn_nomiss.csv" # TODO: check if this is correct
+      Metabolome:
+        Mom: "Kenya_MetabolomeMoms_New.csv"
+        Newborn: "KenyaNewborn_nomiss.csv"
+      # Todo: zimbabwe still missing data
+      Annotation: 
+        Mom: "variable_info_mom_metabolom_kenya.csv"
+        Newborn: "" # not available
+
+    Zimbabwe:
+      Questionnaire: "Zimbabwe/ZimbabweHouseholdData.csv"
+      Metabolome: "Zimbabwe/MetabolomeMoms_New.csv"
+      
+    Bangladesh:
+      Questionnaire: "Bangladesh/BangladeshHouseholdData.csv"
+      Metabolome: "Bangladesh/MetabolomeMoms_New.csv"
+
+
+    Zambia:
+      2019-2020: "ZAMBIA/zambia_clean(decrypted).xlsx"
+      2019-2021: "ZAMBIA/Gates_zambia_complete_dataset(decrypted).xlsx"
+      
+
+  columns:
+      - "demographic_columns"
+      - "lipidome_prefixes"
+      - "metabolome_prefixes"
+      - "maternal_columns"
+      - "timing_columns"
+      - "screening_columns"
+      - "clinical_columns"
+      - "birth_delivery_info"
+  
+  demographic_columns:
+    Bangladesh:
+      Mom:
+        Lipidome: []
+        Metabolome: []
+      Newborn:
+        Lipidome: []
+        Metabolome: []
+    Zambia:
+      Newborn: 
+        Lipidome: [
+          # Administrative / technical identifiers
+          # SGA
+          "getational_age_estimate ", "birth_weight_g", "sex",
+          # Identifiers / provenance
+          "new_id", "Study_ID", "NSO_Accession", "PKG_SentOn", "PKG_ReceivedOn",
+          "EarliestResult_DT", "LatestResult_DT", "collect_final", "bdate_final",
+          "YYYY_MM", "Facility", "Additive",  # date bucket (can leak temporal bias)
+          # Timing / duration fields
+          "aoc_hrs", 
+          "collection_to_shipped", "shipped_to_receipt",
+          "receipt_to_earliest_result", "receipt_to_latest_result",
+          "collection_to_earliest_result", "collection_to_latest_result",
+          
+          # Screening categorical results (not raw metabolite values)
+          "Latest HGB Result", "Latest TREC Result", "HGB", "TREC2", #"TREC",
+          "Screen_Positive_", "application_method", "Sampling_Technique",
+          
+          # Genetic mutation categorical fields (not metabolite measures)
+          "CFTR_Mutation_1", "CFTR_Mutation_2", "Intron_8_Polythymidine_Tract_5T",
+          
+          # Additional hemoglobin breakdown fields (categorical results, not metabolites)
+          #"HGB___FAST", "HGB___F1", "HGB___F", "HGB___F_F1", "HGB___A",
+          #"HGB___FAST_F1", "HGB___Other",
+          
+          # Quality flag
+          "flag 0=fresh, 1=frozen, shipped frozen, 2=frozen, shipped fresh",
+          
+          # Demographics of the newborn
+          "birth_weight_g", "sex", "getational_age_estimate", "estimated_delivery_date",
+          "GA_at_ultrasound_weeks", "ultrasound_date", "birth_location", "feed_type",
+          "transfusion", "multiple_birth", "birth_order", "estimated_birth_percentile",
+          "estimated_SGA10", "estimated_SGA3", "Mode_delivery",
+          "apgar_1", "apgar_5", "apgar_10",
+          
+          # Maternal characteristics
+          "maternal_age_delivery", "prepregnancy_bmi", "parity", "gravity",
+          "smoking", "alcohol", "diabetes_baseline", "diabetes",
+          "hypertension", "gest_hypertension", "preeclampsia",
+          "antiretroviral_therapy",
+          ] 
+
+
+    Kenya:
+      Mom:
+        Lipidome: [
+          "STUDY.ID", 
+          "GAUltrasound", 
+          "GAdelivery", 
+          "AgeDelivery", 
+          "BirthWeight", 
+          "Multiple.Birth", 
+          "BMI", 
+          "Sex", 
+          "HIV", 
+          "SITE"
+        ]
+        Metabolome: [
+          "STUDY.ID", 
+          "GAUltrasound", 
+          "GAdelivery", 
+          "AgeDelivery", 
+          "BirthWeight", 
+          "Multiple.Birth", 
+          "BMI", 
+          "Sex", 
+          "HIV", 
+          "SITE", 
+          "sample_id"
+        ]
+      Newborn:
+        Lipidome: [ # Set of things that should be looked at but removing for now
+          #"Val",
+          # Identifiers / provenance
+          "Pseudo.ID", "NSO.Accession", "StudyID", "STUDY.ID", "Facility", "Column1",
+          # Direct outcome / leakage or screening flags
+          "HIV", "Hiv.Viral.Load", "Screen.Positive", "Flag",
+          # Logistics / timestamps / intervals
+          "Bdate.Final", "Collect.Final", "PKG.SentOn", "PKG.ReceivedOn",
+          "EarliestResult.DT", "LatestResult.DT", "Yyyy.Mm",
+          "Collection.To.Earliest.Result", "Collection.To.Latest.Result",
+          "Collection.To.Shipped", "collection.to.shipped.days",
+          "Receipt.To.Earliest.Result", "Receipt.To.Latest.Result",
+          "Shipped.To.Receipt", "Birth.to.earliest", "Birth.to.latest",
+          "birth.to.shipped", "birth.to.shipped.hr", "recipt.to.HGB",
+          "receipt.to.TREC", "birth.to.HGB", "birth.to.TREC",
+          "AoC_Minutes_CORD", "AoC_Category_CORD", "AoC_Hrs_HEEL", "AoC_Category_HEEL",
+          "Application.method", "Application.to.Paper", "Additive",
+          # Duplicative "latest result" summaries (keep raw analytes above)
+          "LatestHGBResult", "LatestTRECResult",
+          # Demographics / exposures / clinical covariates (use as covariates only if needed, not "same category")
+           "Alcohol", "Smoking", "Antiretroviral.Therapy", "Diabetes",
+          "Hypertension", "Feed.Type", "Gravity", "Parity",
+          "Multiple.Birth", "Preeclampsia.Eclampsia", "Prepregnancy.Bmi",
+          "Maternal.Age.Delivery", "Mode.delivery", "Birth.Location",
+          "Presentation", "Ballard",
+          # Genetics / categorical variants (not metabolome/lipidome)
+          "Intron.8.Polythymidine.Tract.5T",
+          # Imaging / attachments
+          "Aclv.Image",
+          # Assorted that don't fit molecular profile category
+          "GA.at.ultrasound.weeks",
+          # Maternal/infant health variables
+          "Alcohol", "Antiretroviral.Therapy", "Aoc.Hrs", "Ballard", 
+           "Diabetes", "Feed.Type",  "Gravity", 
+          #### SGA
+          "GAdelivery", "Birth.Weight.G", "Sex",
+          ####
+          "Hypertension", "Maternal.Age.Delivery", "Multiple.Birth", "Parity", 
+          "Preeclampsia.Eclampsia", "Prepregnancy.Bmi", "Presentation", "Smoking", 
+          "Transfusion", "Aoc.Hrs",
+          # Columns that might be useful
+          "Apgar.1.5",
+          #"HGB", "TSH", "SUAC", "CFTR.Mutation.1", "CFTR.Mutation.2",
+        ]
+        Metabolome: [
+          # Set of things that should be looked at but removing for now
+          #"Val",
+          #### SGA
+          "GAdelivery", "Birth.Weight.G", "Sex",
+          ####
+          # Identifiers / provenance
+          "Pseudo.ID", "NSO.Accession", "StudyID", "STUDY.ID", "Facility", "Column1",
+          # Direct outcome / leakage or screening flags
+          "HIV", "Hiv.Viral.Load", "Screen.Positive", "Flag",
+          # Logistics / timestamps / intervals
+          "Bdate.Final", "Collect.Final", "PKG.SentOn", "PKG.ReceivedOn",
+          "EarliestResult.DT", "LatestResult.DT", "Yyyy.Mm",
+          "Collection.To.Earliest.Result", "Collection.To.Latest.Result",
+          "Collection.To.Shipped", "collection.to.shipped.days",
+          "Receipt.To.Earliest.Result", "Receipt.To.Latest.Result",
+          "Shipped.To.Receipt", "Birth.to.earliest", "Birth.to.latest",
+          "birth.to.shipped", "birth.to.shipped.hr", "recipt.to.HGB",
+          "receipt.to.TREC", "birth.to.HGB", "birth.to.TREC",
+          "AoC_Minutes_CORD", "AoC_Category_CORD", "AoC_Hrs_HEEL", "AoC_Category_HEEL",
+          "Application.method", "Application.to.Paper", "Additive",
+          # Duplicative "latest result" summaries (keep raw analytes above)
+          "LatestHGBResult", "LatestTRECResult",
+          # Demographics / exposures / clinical covariates (use as covariates only if needed, not "same category")
+          "Alcohol", "Smoking", "Antiretroviral.Therapy", "Diabetes",
+          "Hypertension", "Feed.Type",  "Gravity", "Parity",
+          "Multiple.Birth", "Preeclampsia.Eclampsia", "Prepregnancy.Bmi",
+          "Maternal.Age.Delivery", "Mode.delivery", "Birth.Location",
+          "Presentation", "Ballard",
+          # Genetics / categorical variants (not metabolome/lipidome)
+          "Intron.8.Polythymidine.Tract.5T",
+          # Imaging / attachments
+          "Aclv.Image",
+          # Assorted that don't fit molecular profile category
+          "GA.at.ultrasound.weeks",
+          # Maternal/infant health variables
+          "Alcohol", "Antiretroviral.Therapy", "Aoc.Hrs", "Ballard", 
+           "Diabetes", "Feed.Type", "Gravity", 
+          "Hypertension", "Maternal.Age.Delivery", "Multiple.Birth", "Parity", 
+          "Preeclampsia.Eclampsia", "Prepregnancy.Bmi", "Presentation", "Smoking", 
+          "Transfusion", "Aoc.Hrs",
+          # Columns that might be useful
+          "Apgar.1.5",
+          #"HGB", "TSH", "SUAC", "CFTR.Mutation.1", "CFTR.Mutation.2",
+        ]
+      Dyad:
+        Lipidome: []
+        Metabolome: []
+
+  
+  lipidome_columns:
+    Bangladesh:
+      Mom: []
+      Newborn: []
+    Kenya:
+      Mom: 
+        Lipidome: []
+        Metabolome: []
+      Newborn:  
+        Lipidome: [
+                "C0C2C3C16C18.Cit", "C0", "C0.C16C18",
+                "C10", "C10.1", "C12", "C12.1",
+                "C14OH", "C14", "C14.1", "C14.1.C12.1",
+                "C14.1.C16", "C14.1.C4", "C14.2",
+                "C16OH", "C16OH.C16", "C16", "C16.1OH", "C16.1OH.C4DC",
+                "C18OH", "C18", "C18.1OH", "C18.1", "C18.2",
+                "C2", "C3DC", "C3", "C3.C0", "C3.C16", "C3.C2", "C3.C4DC",
+                "C4DC", "C4OH", "C4",
+                "C5DC", "C5DC.C16", "C5DC.C5OH", "C5DC.C8",
+                "C5OH", "C5OH.C2", "C5OH.C5.1", "C5OH.C8",
+                "C5", "C5.1", "C5.C0", "C5.C2", "C5.C3",
+                "C6DC", "C6", "C8", "C8.1", "C8.C10", "C8.C2"
+            ]
+        Metabolome: []
+
+
+
+
+  
+  column_standardization:
+    STUDY.ID:
+      - "STUDY.ID"
+      - "study.Id"
+      - "Study.ID"
+      - "New.Id"
+      - "newborn_info:New.Id"
+      - "mom_info:STUDY.ID"
+      - "newborn_info:New.Id"
+      - "mom_info:New.Id"
+      - "newborn_info:New.Id"
+    HIV:
+      - "HIV"
+      - "Hiv.Status"
+      - "hiv_status"
+      - "Hiv"
+      - "newborn_info:Hiv.Status"
+      - "mom_info:HIV"
+  
+
+
+
+neonatal_sources:
+  year_collected: "2019-2020"
+  genom_type: 'Lipidome'
+  patient_type: "Newborn"
+  target_column: 'HIV'
+
+
+
+diseases:
+  - "HIV"
+  - "Anemia"
+
+ 

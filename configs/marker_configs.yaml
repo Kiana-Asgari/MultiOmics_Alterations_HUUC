@@ -1,0 +1,154 @@
+# this file is used to map the marker codes to the marker full names
+Kenya_neonatal_markers_mapping:
+  ala: Ala
+  arg: Arg
+  c0: C0
+  c3.c0: C3/C0
+  c5.c0: C5/C0
+  c02: C02
+  c3: C3
+  c3dc: C3DC
+  c4: C4
+  c4dc: C4DC
+  c5: C5
+  c51: C51
+  c5dc: C5DC
+  c5oh: C5OH
+  c6: C6
+  c8: C8
+  c81: C81
+  c10: C10
+  c101: C101
+  c12: C12
+  c121: C121
+  c14: C14
+  c141: C141
+  c142: C142
+  c14oh: C14OH
+  fc: FC
+  gly: Gly
+  met: Met
+  orn: Orn
+  oxp: Oxp
+  phe: Phe
+  pro: Pro
+  sa: Sa
+  tyr: Tyr
+  val: Val
+  xle: Xle
+  r03d10: R03D10
+  r05d03d: R05D03D
+  r1412: R1412
+  r16d16: R16D16
+  r32: R32
+  r53: R53
+  ra.o: RaO
+  rc.a: RcA
+  rf.c: RfC
+  rf.y: RfY
+  rf.y: Rfy
+  rl.a: RlA
+  ro.c: RoC
+  rv.f: RvF
+
+# Short, publication-friendly biomarker display names used across neonatal plots/tables.
+# Keys are the raw feature codes produced by the modeling pipeline (lowercase).
+NEONATES_BIOMARKER_NAME_MAP:
+  # Amino acids
+  tyr: Tyr
+  phe: Phe
+  arg: Arg
+  met: Met
+  gly: Gly
+  ala: Ala
+  leu: Leu
+  orn: Orn
+  cit: Cit
+  val: Val
+  tsh: TSH
+  "asa.arg": ASA/Arg
+  "asa.orn": ASA/Orn
+  "cit.arg": Cit/Arg
+  "orn.arg": Orn/Arg
+  "orn.phe": Orn/Phe
+  "tyr.phe": Tyr/Phe
+  "cit.tyr": Cit/Tyr
+  "leu.ala": Leu/Ala
+  "c16.1oh.c4dc": C16:1OH/C4DC
+  "c3.c4dc": C3/C4DC
+  "c5.c3": C5/C3
+  "cit.orn": Cit/Orn
+
+
+  # Acylcarnitines (case + colon notation)
+  c3: C3
+  c5: C5
+  c5oh: C5OH
+  c6: C6
+  c8: C8
+  "c8.1": "C8:1"
+  "c10.1": "C10:1"
+  "c14.1": "C14:1"
+  "c14.2": "C14:2"
+  c18: C18
+  "c18.1": "C18:1"
+  "c18.2": "C18:2"
+
+  # Dicarboxyl / special acylcarnitines
+  c4dc: C4DC
+  c6dc: C6DC
+
+  # Clinical / newborn screening markers (acronyms)
+  tsh: TSH
+  trec: TREC
+  irt: IRT
+  galt: GALT
+  asa: ASA
+  biot: Biot
+  suac: SUAC
+  n17p: N17P
+
+# Short, publication-friendly maternal feature display names used across maternal plots/tables.
+# Keys are raw feature codes produced by the modeling pipeline (lowercase).
+MATERNAL_FEATURE_NAME_MAP:
+  # Fatty acids
+  "fa.22.4": "FA22:4"
+  "fa.20.0": "FA20:0"
+  "fa.20.1": "FA20:1"
+
+  # Phosphatidylethanolamine plasmalogens
+  "pe.p.16.0.18.2": "PE(P-16:0/18:2)"
+  "pe.p.18.0.20.2": "PE(P-18:0/20:2)"
+  "pe.p.16.0.22.4": "PE(P-16:0/22:4)"
+  "pe.p.18.0.18.2": "PE(P-18:0/18:2)"
+  "pe.p.16.0.18.1": "PE(P-16:0/18:1)"
+
+
+  # Phosphatidylcholines
+  "pc.16.0.20.3": "PC16:0/20:3"
+  "pc.16.0.18.2": "PC16:0/18:2"
+  "pc.18.2.18.2": "PC18:2/18:2"
+  "pc.18.2.20.4": "PC18:2/20:4"
+
+  # Cholesteryl esters
+  "ce.20.3": "CE20:3"
+
+  # Triglycerides
+  "tg.50.5": "TG50:5"
+  "tg.42.4": "TG42:4"
+  "tg.58.6.fa16.0": "TG58:6(FA16:0)"
+  "tg.58.5.fa18.1": "TG58:5(FA18:1)"
+  "tg.56.3.fa16.0": "TG56:3(FA16:0)"
+  "tg.48.3.fa12.0": "TG48:3(FA12:0)"
+  "tg.50.4.fa14.1": "TG50:4(FA14:1)"
+
+  # Micronutrients / metabolites
+  biotin: Biotin
+  laricitrin: Laricitrin
+  geranyl.pp: Geranyl-PP
+
+  # Assay / variable-specific label
+  #"geranyl.pp": Geranyl Pyrophosphate
+  "pc.18.0.20.3": "PC18:0/20:3"
+  "fa.22.6": "FA22:6"
+  "tg.50.5.fa16.0": "TG50:5(FA16:0)"
