@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the version-specific DOI for the snapshot you used and the accompanying paper."
+type: software
+title: "MultiOmics_Alterations_HUUC: multi-omics analysis pipeline for HIV-exposed mother-newborn cohorts"
+abstract: >-
+  Statistical-analysis and figure-generation pipeline for the multi-omics
+  study of HIV-exposed (HEU) versus HIV-unexposed (HUU) mothers and their
+  newborns from the Kenya and Zambia cohorts. Includes maternal univariate
+  effect-size estimation, lasso stability paths, sPLS-DA / PLSR, and
+  neonatal stability-selection biomarker discovery with volcano and
+  violin plots.
+authors:
+  - family-names: Asgari
+    given-names: Kiana
+    affiliation: Stanford University
+version: v1.0.0
+date-released: "2026-05-02"
+license: CC-BY-4.0
+repository-code: "https://github.com/Kiana-Asgari/MultiOmics_Alterations_HUUC"
+url: "https://doi.org/10.5281/zenodo.19990926"
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.19990927
+    description: Version-specific DOI for v1.0.0 (snapshot used in the manuscript).
+  - type: doi
+    value: 10.5281/zenodo.19990926
+    description: Concept DOI (always resolves to the latest archived version).
+keywords:
+  - multi-omics
+  - HIV
+  - HEU
+  - lipidomics
+  - metabolomics
+  - stability-selection
+  - lasso
+  - reproducible-research
